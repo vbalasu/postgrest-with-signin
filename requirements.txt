@@ -1,0 +1,3 @@
+pyjwt
+google-api-python-client
+Flask

@@ -1,2 +1,4 @@
 swap.log
 __pycache__/
+venv/
+mysecrets.py
