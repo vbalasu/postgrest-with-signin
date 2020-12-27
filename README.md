@@ -10,3 +10,4 @@ Included in this project are the following files:
 4. `db_access.py` that powers the `db_access` service running on the server. This performs a couple of useful functions:
    - [/swap](https://postgres.amer.trifacta.net/db_access/swap) provides a Postgrest JWT token in exchange for a Google id_token
    - [/create_role](https://postgres.amer.trifacta.net/db_access/create_role) sets up a new role in the database for the user (`sub`) in the Google id_token
+5. SQL scripts for `check_user` and `create_role`
