@@ -32,8 +32,37 @@ def trade_in(id_token):
     token_data = verify(id_token)
     del token_data['aud']
     token_data['role'] = 'user_' + token_data['sub']
-    return (jwt.encode(token_data, mysecrets.PGRST_JWT_SECRET, algorithm='HS256').decode('utf8'), token_data)
+    return jwt.encode(token_data, mysecrets.PGRST_JWT_SECRET, algorithm='HS256')
+
+def create_role(id_token):
+    token_data = verify(id_token)
+    print(token_data)
+    if token_data:
+        role = 'user_' + token_data['sub']
+        import psycopg2
+        conn = psycopg2.connect(host='postgres.amer.trifacta.net', dbname='main', user='trifacta', password=mysecrets.POSTGRES_PASSWORD)
+        cur = conn.cursor()
+        cur.callproc('create_role', (role,))
+        conn.commit()
+        conn.close()
+        return 'role created: ' + role
+    else:
+        return 'error'
 
 @app.route('/')
 def index():
-    return jsonify(trade_in(request.args.get("token")))
+    return 'Missing command'
+
+@app.route('/swap')
+def swap():
+    if not request.args.get("token"):
+        return 'Missing token'
+    else:
+        return trade_in(request.args.get("token"))
+
+@app.route('/create_role')
+def route_create_role():
+    if not request.args.get("token"):
+        return 'Missing token'
+    else:
+        return create_role(request.args.get("token"))
