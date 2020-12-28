@@ -1,6 +1,6 @@
 # postgrest-with-signin
 
-This is a running configuration that implements Google One Tap for sign in, and uses these credentials to access a Postgrest database via a PostgREST api.
+This is a running configuration that implements Google One Tap for sign in, and uses these credentials to access a Postgres database via a PostgREST api.
 
 Included in this project are the following files:
 
